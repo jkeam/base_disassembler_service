@@ -11,7 +11,7 @@ class Server {
     this.port = options.port;
     this.env = options.env;
     this.logLevel = options.logLevel;
-    this.logger = _createLogger(winston);
+    this.logger = this._createLogger(winston);
   }
 
   _createLogger(winston) {
