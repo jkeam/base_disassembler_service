@@ -34,13 +34,13 @@ class Server {
     const logger = this.logger;
     const handlePost = (req, res) => {
       const guid = uuid();
-      logger.info(`${guid}: Disassembling started at ${new Date()}`);
+      logger.verbose(`${guid}: Disassembling started at ${new Date()}`);
       const disassembler = new this.Disassembler({logger, guid});
       const busboy = new Busboy({ headers: req.headers });
       let code = "";
 
       const writeOutput = (bytecode) => {
-        logger.info(`${guid}: Disassembling finished at ${new Date()}\n`);
+        logger.verbose(`${guid}: Disassembling finished at ${new Date()}\n`);
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify(bytecode));
       };
@@ -64,7 +64,7 @@ class Server {
       if (req.method == 'POST') {
         handlePost(req, res);
       } else {
-        logger.debug(`Bounced non-post request: ${req.method} at ${new Date()}`);
+        logger.verbose(`Bounced non-post request: ${req.method} at ${new Date()}`);
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('Please submit a post with a json payload.');
       }
