@@ -33,13 +33,13 @@ class Server {
   run() {
     const handlePost = (req, res) => {
       const guid = uuid();
-      logger.info(`${guid}: Disassembling started at ${new Date()}`);
-      const disassembler = new this.Disassembler({logger, guid});
+      this.logger.info(`${guid}: Disassembling started at ${new Date()}`);
+      const disassembler = new this.Disassembler({this.logger, guid});
       const busboy = new Busboy({ headers: req.headers });
       let code = "";
 
       const writeOutput = (bytecode) => {
-        logger.info(`${guid}: Disassembling finished at ${new Date()}\n`);
+        this.logger.info(`${guid}: Disassembling finished at ${new Date()}\n`);
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify(bytecode));
       };
@@ -48,7 +48,7 @@ class Server {
         if (fieldname == 'code') {
           // escape the quote so it doesn't collide with the shell terminator
           code = this.codeFormatter(val);
-          logger.debug(`${guid}: Code  -> ${code}`);
+          this.logger.debug(`${guid}: Code  -> ${code}`);
         }
       });
 
@@ -63,14 +63,14 @@ class Server {
       if (req.method == 'POST') {
         handlePost(req, res);
       } else {
-        logger.debug(`Bounced non-post request: ${req.method} at ${new Date()}`);
+        this.logger.debug(`Bounced non-post request: ${req.method} at ${new Date()}`);
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('Please submit a post with a json payload.');
       }
     };
 
     http.createServer(router).listen(this.port, '0.0.0.0', () => {
-      logger.info(`Server started at ${new Date()}, listening on http://0.0.0.0:${this.port}/`);
+      this.logger.info(`Server started at ${new Date()}, listening on http://0.0.0.0:${this.port}/`);
     });
   }
 }
