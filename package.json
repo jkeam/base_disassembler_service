@@ -1,0 +1,35 @@
+{
+  "name": "base_disassembler_service",
+  "version": "1.0.0",
+  "description": "Web app scaffold for disassembler services.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkeam/base_disassembler_service.git"
+  },
+  "keywords": [
+    "node",
+    "disassembler"
+  ],
+  "author": "Jon Keam <jpkeam@gmail.com> (http://jonkeam.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jkeam/base_disassembler_service/issues"
+  },
+  "homepage": "https://github.com/jkeam/base_disassembler_service#readme",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "busboy": "^0.2.13",
+    "uuid": "^3.0.1",
+    "winston": "^2.3.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-spies": "^0.7.1",
+    "mocha": "^3.2.0"
+  }
+}
